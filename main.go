@@ -8,11 +8,10 @@ import (
 	handlers "Quester/handlers"
 )
 
-// TODO: Handlefunc for static html, save json to local in handleJson, display saved json objects in front html
-
+// TODO: add more handlers for read separate quest, delete quest.
+// TODO: think of design of main page and how to quary information.
 func main() {
 
-	//handlers.PrintAllQuests()
 	http.HandleFunc("/", handlers.HandleJson)
 	http.HandleFunc("/main/", handlers.IndexHandler)
 
@@ -30,25 +29,3 @@ func checkFile(filename string) error {
 	}
 	return nil
 }
-
-type AllQuests struct {
-	Time   int64       `json:"time"`
-	Quests []QuestJson `json:"allQuests"`
-}
-
-type QuestJson struct {
-	Content     string `json:"content"`
-	Character   string `json:"character"`
-	QuestReward Quest  `json:"quest"`
-}
-
-type Quest struct {
-	QuestgiverName               string `json:"questgiverName"`
-	RewardLp                     string `json:"rewardLp"`
-	RewardExp                    string `json:"rewardExp"`
-	RewardLocalQuality           string `json:"rewardLocalQuality"`
-	RewardLocalQualityAdditional string `json:"rewardLocalQualityAdditional"`
-	RewardItem                   string `json:"rewardItem"`
-}
-
-//{[]}

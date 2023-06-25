@@ -73,5 +73,35 @@
                 "rewardItem": "Gilding leaf"
             }
         }
+    },
+    {
+        "time": 1687718147,
+        "questStructure": {
+            "content": "Quest content",
+            "character": "Nords of Skyrim",
+            "quest": {
+                "questgiverName": "Ingvetil",
+                "rewardLp": "",
+                "rewardExp": "2608",
+                "rewardLocalQuality": "",
+                "rewardLocalQualityAdditional": "",
+                "rewardItem": ""
+            }
+        }
+    },
+    {
+        "time": 1687718152,
+        "questStructure": {
+            "content": "Quest content",
+            "character": "Nords of Skyrim",
+            "quest": {
+                "questgiverName": "Ingvetil",
+                "rewardLp": "",
+                "rewardExp": "",
+                "rewardLocalQuality": "",
+                "rewardLocalQualityAdditional": "Aurochs by 1",
+                "rewardItem": ""
+            }
+        }
     }
 ]

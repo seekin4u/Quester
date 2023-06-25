@@ -1,0 +1,31 @@
+{{ $foos := .Quests }}
+{{ $length := len .Quests }}
+<html>
+
+<head>
+    <title>Quests </title>
+</head>
+
+<body>
+
+
+    <div> {{$length}}</div>
+    {{range $rangeel := $foos}}
+    <div> Time is {{.Time}} </div>
+    <div> Character is {{.Quest.Character}} </div>
+    {{end}}
+
+    <!-- <h1>Options</h1>
+    <form action="/addnewuser/">
+        <button type="submit">Add new user</button>
+    </form>
+    <form action="/deleteuser/">
+        <button type="submit">Delete user</button>
+    </form>
+    <form action="/showuser/">
+        <button type="submit">Show user</button>
+    </form> -->
+
+</body>
+
+</html>

@@ -80,17 +80,6 @@ func HandleJson(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to parse JSON", http.StatusBadRequest)
 		return
 	}
-
-	/*fmt.Println("Received json")
-	fmt.Println("content:", receivedQuest.Content)
-	fmt.Println("character:", receivedQuest.Character)
-	fmt.Println("quest:")
-	fmt.Println("	QuestgiverName:", receivedQuest.QuestReward.QuestgiverName)
-	fmt.Println("	RewardLp", receivedQuest.QuestReward.RewardLp)
-	fmt.Println("	RewardExp", receivedQuest.QuestReward.RewardExp)
-	fmt.Println("	RewardLocalQuality", receivedQuest.QuestReward.RewardLocalQuality)
-	fmt.Println("	RewardLocalQualityAdditional", receivedQuest.QuestReward.RewardLocalQualityAdditional)
-	fmt.Println("	RewardItem", receivedQuest.QuestReward.RewardItem)*/
 	w.WriteHeader(http.StatusOK)
 
 	var questTime model.QuestTime
@@ -123,9 +112,6 @@ func HandleJson(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("---------")
 
-	//w.Write([]byte("JSON file received and processed successfully"))
-	//TODO : save receivedQuest to QuestEntry and save it on a disk
-
 	file, err := os.OpenFile("quests.json", os.O_RDWR, 0644)
 	checkError(err)
 	defer file.Close()
@@ -140,15 +126,4 @@ func HandleJson(w http.ResponseWriter, r *http.Request) {
 	checkError(err)
 	ioutil.WriteFile("quests.json", newAlQs, 0666)
 
-}
-
-func checkFile(filename string) error {
-	_, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		_, err := os.Create(filename)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }

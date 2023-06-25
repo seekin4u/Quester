@@ -24,6 +24,8 @@ func ShowAllQuests() (aq *AllQuests) {
 	return &allQuests
 }
 
+//Todo: add `json:"time,omitempty"` to all models. there are empty fields in json now
+
 type AllQuests struct {
 	Quests []*QuestTime
 }

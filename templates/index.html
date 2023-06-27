@@ -1,30 +1,47 @@
-{{ $foos := .Quests }}
+{{ $quests := .Quests }}
 {{ $length := len .Quests }}
 <html>
 
 <head>
+    <link href="/style/style.css" type="text/css" rel="stylesheet">
     <title>Quests </title>
 </head>
 
 <body>
+    <div class="main">
+        <div class="topnav">
+            <a class="active" href="/main/">View quests</a>
+            <a href="#npc">NPCs</a>
+            <a href="#quality">Qualities</a>
+            <a href="#stat">Stat</a>
+        </div>
 
+        <div> General length : {{$length}}</div>
+        <div class="container-border">
+            <div class="quest-border">
+                {{range $rangeel := $quests}}
+                <ul>
+                    <div> {{.Quest.Character}} </div>
+                    {{if .Quest.QuestReward.QuestgiverName}}<div>{{.Quest.QuestReward.QuestgiverName}} </div>
+                    <div>
+                        <ul>
+                            {{if .Quest.QuestReward.RewardLp}}<li>LP:{{.Quest.QuestReward.RewardLp}} </li>{{end}}
+                            {{if .Quest.QuestReward.RewardExp}}<li>EXP:{{.Quest.QuestReward.RewardExp}} </li>{{end}}
+                            {{if .Quest.QuestReward.RewardLocalQuality}}<li>Local quality:
+                                {{.Quest.QuestReward.RewardLocalQuality}}</li>{{end}}
+                            {{if
+                            .Quest.QuestReward.RewardLocalQualityAdditional}}<li>Local quality:
+                                {{.Quest.QuestReward.RewardLocalQualityAdditional}}</li>{{end}}
 
-    <div> {{$length}}</div>
-    {{range $rangeel := $foos}}
-    <div> Time is {{.Time}} </div>
-    <div> Character is {{.Quest.Character}} </div>
-    {{end}}
-
-    <!-- <h1>Options</h1>
-    <form action="/addnewuser/">
-        <button type="submit">Add new user</button>
-    </form>
-    <form action="/deleteuser/">
-        <button type="submit">Delete user</button>
-    </form>
-    <form action="/showuser/">
-        <button type="submit">Show user</button>
-    </form> -->
+                            {{if .Quest.QuestReward.RewardItem}}<li>Item:{{.Quest.QuestReward.RewardItem}}</li>{{end}}
+                        </ul>
+                    </div>
+                    {{end}}
+                </ul>
+                {{end}}
+            </div>
+        </div>
+    </div>
 
 </body>
 

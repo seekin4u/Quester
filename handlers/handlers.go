@@ -61,7 +61,6 @@ func PrintAllQuests() {
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.ShowAllQuests()
-	//t, err := template.ParseFiles("templates/index.html")
 	t := template.Must(template.ParseFiles("templates/index.html"))
 	t.Execute(w, au)
 }

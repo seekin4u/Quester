@@ -12,6 +12,10 @@ import (
 // TODO: think of design of main page and how to quary information.
 func main() {
 
+	//styles loading
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/style/", fs)
+
 	http.HandleFunc("/", handlers.HandleJson)
 	http.HandleFunc("/main/", handlers.IndexHandler)
 

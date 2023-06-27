@@ -20,6 +20,9 @@ func ShowAllQuests() (aq *AllQuests) {
 	var allQuests AllQuests
 	json.Unmarshal(b, &allQuests.Quests)
 	checkError(err)
+	/*for _, val := range allQuests.Quests {
+		fmt.Println(val.Quest.QuestReward)
+	}*/
 	//fmt.Println(allQuests)
 	return &allQuests
 }
@@ -43,9 +46,10 @@ type QuestStructure struct {
 
 type QuestDescription struct {
 	QuestgiverName               string `json:"questgiverName"`
-	RewardLp                     string `json:"rewardLp"`
-	RewardExp                    string `json:"rewardExp"`
-	RewardLocalQuality           string `json:"rewardLocalQuality"`
-	RewardLocalQualityAdditional string `json:"rewardLocalQualityAdditional"`
-	RewardItem                   string `json:"rewardItem"`
+	RewardLp                     string `json:"rewardLp,omitempty"`
+	RewardExp                    string `json:"rewardExp,omitempty"`
+	RewardLocalQuality           string `json:"rewardLocalQuality,omitempty"`
+	RewardLocalQualityAdditional string `json:"rewardLocalQualityAdditional,omitempty"`
+	RewardBy                     string `json:"rewardBy, omitempty"`
+	RewardItem                   string `json:"rewardItem,omitempty"`
 }

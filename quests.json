@@ -2,59 +2,45 @@
     {
         "time": 1687669244,
         "questStructure": {
-            "content": "Quest content",
+            "content": "Nurgling",
             "character": "Nords",
             "quest": {
                 "questgiverName": "Filland",
-                "rewardLp": "9022",
-                "rewardExp": "",
-                "rewardLocalQuality": "",
-                "rewardLocalQualityAdditional": "",
-                "rewardItem": ""
+                "rewardLp": "9022"
             }
         }
     },
     {
         "time": 1687669249,
         "questStructure": {
-            "content": "Quest content",
-            "character": "quest 2",
+            "content": "Nurgling",
+            "character": "NORDS",
             "quest": {
                 "questgiverName": "Ingh",
-                "rewardLp": "1005",
-                "rewardExp": "",
-                "rewardLocalQuality": "",
-                "rewardLocalQualityAdditional": "",
-                "rewardItem": ""
+                "rewardLp": "1005"
             }
         }
     },
     {
         "time": 1687669600,
         "questStructure": {
-            "content": "Quest content",
-            "character": "quest 3",
+            "content": "Nurgling",
+            "character": "NORDS",
             "quest": {
                 "questgiverName": "Ingh",
-                "rewardLp": "1005",
-                "rewardExp": "",
-                "rewardLocalQuality": "",
-                "rewardLocalQualityAdditional": "",
-                "rewardItem": ""
+                "rewardLp": "1005"
             }
         }
     },
     {
         "time": 1687685038,
         "questStructure": {
-            "content": "Quest content",
-            "character": "Nords",
+            "content": "Nurgling",
+            "character": "Nurgling",
             "quest": {
                 "questgiverName": "TestQuestgiver",
                 "rewardLp": "1024",
-                "rewardExp": "",
-                "rewardLocalQuality": "Moose by 1",
-                "rewardLocalQualityAdditional": "",
+                "rewardLocalQuality": "Moose",
                 "rewardItem": "Gilding leaf"
             }
         }
@@ -67,9 +53,7 @@
             "quest": {
                 "questgiverName": "TestQuestgiver",
                 "rewardLp": "1024",
-                "rewardExp": "",
-                "rewardLocalQuality": "Moose by 1",
-                "rewardLocalQualityAdditional": "",
+                "rewardLocalQuality": "Moose",
                 "rewardItem": "Gilding leaf"
             }
         }
@@ -81,11 +65,7 @@
             "character": "Nords of Skyrim",
             "quest": {
                 "questgiverName": "Ingvetil",
-                "rewardLp": "",
-                "rewardExp": "2608",
-                "rewardLocalQuality": "",
-                "rewardLocalQualityAdditional": "",
-                "rewardItem": ""
+                "rewardExp": "2608"
             }
         }
     },
@@ -96,11 +76,18 @@
             "character": "Nords of Skyrim",
             "quest": {
                 "questgiverName": "Ingvetil",
-                "rewardLp": "",
-                "rewardExp": "",
-                "rewardLocalQuality": "",
-                "rewardLocalQualityAdditional": "Aurochs by 1",
-                "rewardItem": ""
+                "rewardLocalQualityAdditional": "Aurochs"
+            }
+        }
+    },
+    {
+        "time": 1687722089,
+        "questStructure": {
+            "content": "Quest content",
+            "character": "Nords of Skyrim",
+            "quest": {
+                "questgiverName": "Ingvetil",
+                "rewardLocalQuality": "Aurochs"
             }
         }
     }

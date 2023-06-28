@@ -1,94 +1,251 @@
 [
-    {
-        "time": 1687669244,
-        "questStructure": {
-            "content": "Nurgling",
-            "character": "Nords",
-            "quest": {
-                "questgiverName": "Filland",
-                "rewardLp": "9022"
-            }
-        }
-    },
-    {
-        "time": 1687669249,
-        "questStructure": {
-            "content": "Nurgling",
-            "character": "NORDS",
-            "quest": {
-                "questgiverName": "Ingh",
-                "rewardLp": "1005"
-            }
-        }
-    },
-    {
-        "time": 1687669600,
-        "questStructure": {
-            "content": "Nurgling",
-            "character": "NORDS",
-            "quest": {
-                "questgiverName": "Ingh",
-                "rewardLp": "1005"
-            }
-        }
-    },
-    {
-        "time": 1687685038,
-        "questStructure": {
-            "content": "Nurgling",
-            "character": "Nurgling",
-            "quest": {
-                "questgiverName": "TestQuestgiver",
-                "rewardLp": "1024",
-                "rewardLocalQuality": "Moose",
-                "rewardItem": "Gilding leaf"
-            }
-        }
-    },
-    {
-        "time": 1687685078,
-        "questStructure": {
-            "content": "Quest content",
-            "character": "Nords",
-            "quest": {
-                "questgiverName": "TestQuestgiver",
-                "rewardLp": "1024",
-                "rewardLocalQuality": "Moose",
-                "rewardItem": "Gilding leaf"
-            }
-        }
-    },
-    {
-        "time": 1687718147,
-        "questStructure": {
-            "content": "Quest content",
-            "character": "Nords of Skyrim",
-            "quest": {
-                "questgiverName": "Ingvetil",
-                "rewardExp": "2608"
-            }
-        }
-    },
-    {
-        "time": 1687718152,
-        "questStructure": {
-            "content": "Quest content",
-            "character": "Nords of Skyrim",
-            "quest": {
-                "questgiverName": "Ingvetil",
-                "rewardLocalQualityAdditional": "Aurochs"
-            }
-        }
-    },
-    {
-        "time": 1687722089,
-        "questStructure": {
-            "content": "Quest content",
-            "character": "Nords of Skyrim",
-            "quest": {
-                "questgiverName": "Ingvetil",
-                "rewardLocalQuality": "Aurochs"
-            }
-        }
-    }
+ {
+  "time": 1687669244,
+  "questStructure": {
+   "content": "Nurgling",
+   "character": "Nords",
+   "quest": {
+    "questgiverName": "Filland",
+    "rewardLp": "9022"
+   }
+  }
+ },
+ {
+  "time": 1687669249,
+  "questStructure": {
+   "content": "Nurgling",
+   "character": "NORDS",
+   "quest": {
+    "questgiverName": "Ingh",
+    "rewardLp": "1005"
+   }
+  }
+ },
+ {
+  "time": 1687669600,
+  "questStructure": {
+   "content": "Nurgling",
+   "character": "NORDS",
+   "quest": {
+    "questgiverName": "Ingh",
+    "rewardLp": "1005"
+   }
+  }
+ },
+ {
+  "time": 1687685038,
+  "questStructure": {
+   "content": "Nurgling",
+   "character": "Nurgling",
+   "quest": {
+    "questgiverName": "TestQuestgiver",
+    "rewardLp": "1024",
+    "rewardLocalQuality": "Moose",
+    "rewardItem": "Gilding leaf"
+   }
+  }
+ },
+ {
+  "time": 1687685078,
+  "questStructure": {
+   "content": "Quest content",
+   "character": "Nords",
+   "quest": {
+    "questgiverName": "TestQuestgiver",
+    "rewardLp": "1024",
+    "rewardLocalQuality": "Moose",
+    "rewardItem": "Gilding leaf"
+   }
+  }
+ },
+ {
+  "time": 1687718147,
+  "questStructure": {
+   "content": "Quest content",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Ingvetil",
+    "rewardExp": "2608"
+   }
+  }
+ },
+ {
+  "time": 1687718152,
+  "questStructure": {
+   "content": "Quest content",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Ingvetil",
+    "rewardLocalQualityAdditional": "Aurochs",
+    "rewardBy": "1"
+   }
+  }
+ },
+ {
+  "time": 1687904694,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Laugot",
+    "rewardLp": "25595"
+   }
+  }
+ },
+ {
+  "time": 1687906940,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Nirnland",
+    "rewardItem": "something that was lying around"
+   }
+  }
+ },
+ {
+  "time": 1687907028,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Nirnland",
+    "rewardItem": "something that was lying around"
+   }
+  }
+ },
+ {
+  "time": 1687907142,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Nirnland",
+    "rewardItem": "something that was lying around"
+   }
+  }
+ },
+ {
+  "time": 1687907742,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardExp": "2237"
+   }
+  }
+ },
+ {
+  "time": 1687907931,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Ansjor",
+    "rewardLp": "983"
+   }
+  }
+ },
+ {
+  "time": 1687908348,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardItem": "a Gilding Rock"
+   }
+  }
+ },
+ {
+  "time": 1687910039,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardLocalQuality": "Morels",
+    "rewardBy": "1"
+   }
+  }
+ },
+ {
+  "time": 1687916630,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Bildal",
+    "rewardItem": "a Gilding Leaf"
+   }
+  }
+ },
+ {
+  "time": 1687917169,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardExp": "607"
+   }
+  }
+ },
+ {
+  "time": 1687917723,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardItem": "a Gilding Leaf"
+   }
+  }
+ },
+ {
+  "time": 1687917831,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardItem": "a Gilding Rock"
+   }
+  }
+ },
+ {
+  "time": 1687917917,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardLp": "3676"
+   }
+  }
+ },
+ {
+  "time": 1687917917,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardLocalQualityAdditional": "Boar",
+    "rewardBy": "1"
+   }
+  }
+ },
+ {
+  "time": 1687918188,
+  "questStructure": {
+   "content": "Hogrida",
+   "character": "Nords of Skyrim",
+   "quest": {
+    "questgiverName": "Liefisilus",
+    "rewardLp": "494"
+   }
+  }
+ }
 ]

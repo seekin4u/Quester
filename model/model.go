@@ -13,6 +13,15 @@ func checkError(err error) {
 	}
 }
 
+func ShowNpc(npcs *QuestStructure) {
+	//read file
+	//unmarshal
+	//using jsonq parse and get all u=nique NPSs
+	//save to npcs
+	//return
+
+}
+
 func ShowAllQuests() (aq *AllQuests) {
 	file, err := os.OpenFile("quests.json", os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)
@@ -26,8 +35,6 @@ func ShowAllQuests() (aq *AllQuests) {
 	//fmt.Println(allQuests)
 	return &allQuests
 }
-
-//Todo: add `json:"time,omitempty"` to all models. there are empty fields in json now
 
 type AllQuests struct {
 	Quests []*QuestTime
@@ -50,6 +57,6 @@ type QuestDescription struct {
 	RewardExp                    string `json:"rewardExp,omitempty"`
 	RewardLocalQuality           string `json:"rewardLocalQuality,omitempty"`
 	RewardLocalQualityAdditional string `json:"rewardLocalQualityAdditional,omitempty"`
-	RewardBy                     string `json:"rewardBy, omitempty"`
+	RewardBy                     string `json:"rewardBy,omitempty"`
 	RewardItem                   string `json:"rewardItem,omitempty"`
 }

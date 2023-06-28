@@ -18,6 +18,7 @@ func main() {
 
 	http.HandleFunc("/", handlers.HandleJson)
 	http.HandleFunc("/main/", handlers.IndexHandler)
+	http.HandleFunc("/npc/", handlers.NpcHandler)
 
 	log.Fatal(http.ListenAndServe(":5000", nil))
 

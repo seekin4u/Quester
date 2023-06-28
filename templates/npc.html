@@ -1,0 +1,50 @@
+{{ $quests := .Quests }}
+{{ $length := len .Quests }}
+<html>
+
+<head>
+    <link href="/style/style.css" type="text/css" rel="stylesheet">
+    <title>Quests </title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="topnav">
+            <a href="/main/">View quests</a>
+            <a class="active" href="/npc/">NPCs</a>
+            <a href="#quality">Qualities</a>
+            <a href="#stat">Stat</a>
+        </div>
+
+        <div> General length : {{$length}}</div>
+        <div class="container-border">
+
+            {{range $rangeel := $quests}}
+            <div class="quest-border">
+                <ul>
+                    <div> {{.Quest.Character}} </div>
+                    {{if .Quest.QuestReward.QuestgiverName}}<div>{{.Quest.QuestReward.QuestgiverName}} </div>
+                    <div>
+                        <ul>
+                            {{if .Quest.QuestReward.RewardLp}}<li>LP: {{.Quest.QuestReward.RewardLp}} </li>{{end}}
+                            {{if .Quest.QuestReward.RewardExp}}<li>EXP: {{.Quest.QuestReward.RewardExp}} </li>{{end}}
+                            {{if .Quest.QuestReward.RewardLocalQuality}}<li>Local quality:
+                                {{.Quest.QuestReward.RewardLocalQuality}}</li>{{end}}
+                            {{if
+                            .Quest.QuestReward.RewardLocalQualityAdditional}}<li>Local quality:
+                                {{.Quest.QuestReward.RewardLocalQualityAdditional}}</li>{{end}}
+                            {{if .Quest.QuestReward.RewardBy}}<li>By: {{.Quest.QuestReward.RewardBy}}</li>{{end}}
+                            {{if .Quest.QuestReward.RewardItem}}<li>Item: {{.Quest.QuestReward.RewardItem}}</li>{{end}}
+                        </ul>
+                    </div>
+                    {{end}}
+                </ul>
+            </div>
+            {{end}}
+
+        </div>
+    </div>
+
+</body>
+
+</html>

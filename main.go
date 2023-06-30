@@ -1,36 +1,33 @@
 package main
 
 import (
-	"log"
+	"Quester/handlers"
+	"Quester/model"
 	"net/http"
-	"os"
 
-	handlers "Quester/handlers"
+	"github.com/julienschmidt/httprouter"
 )
 
 // TODO: add more handlers for read separate quest, delete quest.
 // TODO: think of design of main page and how to quary information.
 func main() {
 
-	//styles loading
-	fs := http.FileServer(http.Dir("static"))
+	//model.GetQgs()
+
+	/*fs := http.FileServer(http.Dir("static"))
 	http.Handle("/style/", fs)
 
-	http.HandleFunc("/", handlers.HandleJson)
+	http.HandleFunc("/", handlers.HandleJsonBig)
 	http.HandleFunc("/main/", handlers.IndexHandler)
-	http.HandleFunc("/npc/", handlers.NpcHandler)
+	http.HandleFunc("/npc/", handlers.NpcHandlerGeneral)
+	//handlers.PrintNpc()
 
-	log.Fatal(http.ListenAndServe(":5000", nil))
+	log.Fatal(http.ListenAndServe(":5000", nil))*/
+	model.GetQestgiverQualities()
+	router := httprouter.New()
+	router.GET("/main", handlers.IndexHandlerH)
+	router.GET("/npc", handlers.NpcHandlerGeneralH)
+	router.GET("/npc/1", handlers.NpcHandlerSpecial)
+	http.ListenAndServe(":5000", router)
 
-}
-
-func checkFile(filename string) error {
-	_, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		_, err := os.Create(filename)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }

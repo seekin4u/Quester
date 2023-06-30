@@ -10,8 +10,8 @@
 <body>
     <div class="main">
         <div class="topnav">
-            <a class="active" href="/main/">View quests</a>
-            <a href="/npc/">NPCs</a>
+            <a class="active" href="/main">View quests</a>
+            <a href="/npc">NPCs</a>
             <a href="#quality">Qualities</a>
             <a href="#stat">Stat</a>
         </div>
@@ -21,26 +21,34 @@
 
             {{range $rangeel := $quests}}
             <div class="quest-border">
-                <ul>
-                    <div> {{.Quest.Character}} - {{.Quest.QuestReward.QuestgiverName}}</div>
-                    {{if .Quest.QuestReward.QuestgiverName}}
-                    <div>
+                {{if .Quest.QuestReward.QuestgiverName}}
+                <div>
+                    <span style="color :#86b957">{{.Quest.QuestReward.QuestgiverName}}</span>
+                    <span style="color :brown">
+                        {{if .Quest.QuestReward.RewardLp}}LP:{{.Quest.QuestReward.RewardLp}}{{end}}
+                        {{if .Quest.QuestReward.RewardExp}}EXP:{{.Quest.QuestReward.RewardExp}}{{end}}
+                        <!-- отображение обычного качества inline-->
+                        {{if .Quest.QuestReward.RewardLocalQuality}}{{.Quest.QuestReward.RewardLocalQuality}}
+                        {{if .Quest.QuestReward.RewardBy}} {{.Quest.QuestReward.RewardBy}}
+                        {{end}}
+                        {{end}}
+                        <!-- отображение доп качества inline-->
+                        {{if .Quest.QuestReward.RewardLocalQualityAdditional}}
+                        {{.Quest.QuestReward.RewardLocalQualityAdditional}}
+                        {{if .Quest.QuestReward.RewardBy}}{{.Quest.QuestReward.RewardBy}}
+                        {{end}}
+                        {{end}}
 
-                        {{if .Quest.QuestReward.RewardLp}}<li>LP: {{.Quest.QuestReward.RewardLp}} </li>{{end}}
-                        {{if .Quest.QuestReward.RewardExp}}<li>EXP: {{.Quest.QuestReward.RewardExp}} </li>{{end}}
-                        {{if .Quest.QuestReward.RewardLocalQuality}}<li>Local quality:
-                            {{.Quest.QuestReward.RewardLocalQuality}}{{if .Quest.QuestReward.RewardBy}} - By:
-                            {{.Quest.QuestReward.RewardBy}}{{end}}</li>{{end}}
-                        {{if
-                        .Quest.QuestReward.RewardLocalQualityAdditional}}<li>Local quality:
-                            {{.Quest.QuestReward.RewardLocalQualityAdditional}}{{if .Quest.QuestReward.RewardBy}} - By:
-                            {{.Quest.QuestReward.RewardBy}}{{end}}</li>{{end}}
+                        {{if .Quest.QuestReward.RewardItem}}{{.Quest.QuestReward.RewardItem}}{{end}}
+                    </span>
 
-                        {{if .Quest.QuestReward.RewardItem}}<li>Item: {{.Quest.QuestReward.RewardItem}}</li>{{end}}
+                    <span style="color:cadetblue">&#10100; {{.Quest.Character}} {{.Time}} &#10101;</span>
+                    <button onclick="location.href='/npc/{{.Quest.QuestReward.QuestgiverName}}'" type="button">
+                        examine</button>
 
-                    </div>
-                    {{end}}
-                </ul>
+                </div>
+                {{end}}
+
             </div>
             {{end}}
 

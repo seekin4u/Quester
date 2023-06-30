@@ -1,5 +1,5 @@
-{{ $questgivers := .Questgivers }}
-{{ $length := len .Questgivers }}
+{{ $questgiver := .Questgiver }}
+{{ $length := len .Qualities }}
 <html>
 
 <head>
@@ -18,18 +18,18 @@
 
         <div> General length : {{$length}}</div>
         <div class="container-border">
-
-            {{range $rangeel := $questgivers}}
             <div class="quest-border">
-                {{.}}
-                <button onclick="location.href='/npc/1'" type="button">
-                    examine</button>
-            </div>
-            {{end}}
+                <div>
+                    <span style="color :#86b957">{{$questgiver}}</span>
 
+                    <span style="color:cadetblue">&#10100; {{.Qualities}} &#10101;</span>
+                    <button onclick="location.href='/npc/'" type="button">
+                        examine</button>
+
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>

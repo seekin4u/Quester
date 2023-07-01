@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
-
-	"github.com/thedevsaddam/gojsonq/v2"
 )
 
 func checkError(err error) {
@@ -16,56 +13,53 @@ func checkError(err error) {
 	}
 }
 
-func ShowNpc(npcs *QuestStructure) {
-	res := gojsonq.New().File("../data.json").From("items").Get()
-	fmt.Printf("%#v\n", res)
-
-}
-
-func ShowAllQuests() (aq *AllQuests) {
-	file, err := os.OpenFile("quests.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var allQuests AllQuests
-	json.Unmarshal(b, &allQuests.Quests)
-	checkError(err)
-	return &allQuests
-}
-
-func ShowAllQuestsBig() (aq *RootStructure) {
-	file, err := os.OpenFile("quests.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var rootSt RootStructure
-	json.Unmarshal(b, &rootSt.Root)
-	checkError(err)
-	fmt.Println(rootSt)
-
-	return &rootSt
-}
-
-func GetQgs() {
-
-	res, err := http.Get("http://localhost:3000/api/qg")
+func GetQuests() (aq *AllQuests) {
+	res, err := http.Get("http://localhost:3000/api/getall")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
-		os.Exit(1)
+		return &AllQuests{}
 	}
 	fmt.Printf("client: status code: %d\n", res.StatusCode)
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("Failed to parse response body")
-		return
+		return &AllQuests{}
+	}
+
+	var allQuests AllQuests
+	err = json.Unmarshal(body, &allQuests)
+	if err != nil {
+		fmt.Println("Failed to parse response json")
+		return &AllQuests{}
+	}
+	return &allQuests
+}
+
+func GetQuestgivers() Questgivers {
+
+	res, err := http.Get("http://localhost:3000/api/questgiver/questgivers")
+	if err != nil {
+		fmt.Printf("error making http request: %s\n", err)
+		return Questgivers{}
+	}
+	fmt.Printf("client: status code: %d\n", res.StatusCode)
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println("Failed to parse response body")
+		return Questgivers{}
 	}
 
 	var receivedQuestgivers Questgivers
 	err = json.Unmarshal(body, &receivedQuestgivers)
 	if err != nil {
 		fmt.Println("Failed to parse response json")
-		return
+		return Questgivers{}
 	}
 	fmt.Println(receivedQuestgivers)
+	//got []string of npc names. Now info on each one.
+	return receivedQuestgivers
 }
 
 func GetQestgiverQualities() QuestgiverQualities {
@@ -73,7 +67,7 @@ func GetQestgiverQualities() QuestgiverQualities {
 	res, err := http.Get("http://localhost:3000/api/questgiver/general")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
-		os.Exit(1)
+		return QuestgiverQualities{}
 	}
 	fmt.Printf("client: status code: %d\n", res.StatusCode)
 
@@ -94,18 +88,18 @@ func GetQestgiverQualities() QuestgiverQualities {
 }
 
 // /api/questgiver/questgivers
-type Questgivers struct {
+type QuestgiversString struct {
 	Questgivers []string `json:"qgs"`
+}
+
+type Questgivers struct {
+	Questgivers []QuestDescription
 }
 
 // /api/questgiver/general
 type QuestgiverQualities struct {
 	Questgiver string   `json:"qg"`
 	Qualities  []string `json:"ql"`
-}
-
-type RootStructure struct {
-	Root AllQuests `json:"root"`
 }
 
 type AllQuests struct {

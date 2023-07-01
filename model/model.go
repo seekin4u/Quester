@@ -36,30 +36,51 @@ func GetQuests() (aq *AllQuests) {
 	return &allQuests
 }
 
-func GetQuestgivers() Questgivers {
+func GetQuestgiversQualities() []QuestgiverQualities {
+	var questGiversQuelities []QuestgiverQualities
 
 	res, err := http.Get("http://localhost:3000/api/questgiver/questgivers")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
-		return Questgivers{}
+		return questGiversQuelities
 	}
 	fmt.Printf("client: status code: %d\n", res.StatusCode)
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("Failed to parse response body")
-		return Questgivers{}
+		return questGiversQuelities
 	}
 
-	var receivedQuestgivers Questgivers
+	var receivedQuestgivers QuestgiversString
 	err = json.Unmarshal(body, &receivedQuestgivers)
 	if err != nil {
 		fmt.Println("Failed to parse response json")
-		return Questgivers{}
+		return questGiversQuelities
 	}
 	fmt.Println(receivedQuestgivers)
-	//got []string of npc names. Now info on each one.
-	return receivedQuestgivers
+
+	for _, el := range receivedQuestgivers.Questgivers {
+		qg, err := http.Get("http://localhost:3000/api/questgiver/questgiverqualities/" + el)
+		if err != nil {
+			fmt.Printf("error making http request: %s\n on %s", err, el)
+			return questGiversQuelities
+		}
+		body, err := ioutil.ReadAll(qg.Body)
+		if err != nil {
+			fmt.Println("Failed to parse response body of [" + el + "]")
+			return questGiversQuelities
+		}
+		var receivedQuestgiverQualities QuestgiverQualities
+		err = json.Unmarshal(body, &receivedQuestgiverQualities)
+		if err != nil {
+			fmt.Println("Failed to parse response json of [" + el + "]")
+			return questGiversQuelities
+		}
+		questGiversQuelities = append(questGiversQuelities, receivedQuestgiverQualities)
+	}
+
+	return questGiversQuelities
 }
 
 func GetQestgiverQualities() QuestgiverQualities {
@@ -93,10 +114,10 @@ type QuestgiversString struct {
 }
 
 type Questgivers struct {
-	Questgivers []QuestDescription
+	Questgivers []QuestDescription `json:"ql"`
 }
 
-// /api/questgiver/general
+// /api/questgiver/generic
 type QuestgiverQualities struct {
 	Questgiver string   `json:"qg"`
 	Qualities  []string `json:"ql"`

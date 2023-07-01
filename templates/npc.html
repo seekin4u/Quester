@@ -1,5 +1,3 @@
-{{ $questgivers := .Questgivers }}
-{{ $length := len .Questgivers }}
 <html>
 
 <head>
@@ -16,15 +14,15 @@
             <a href="#stat">Stat</a>
         </div>
 
-        <div> General length : {{$length}}</div>
+        <div> General length : {{len .}}</div>
         <div class="container-border">
 
-            {{range $rangeel := .Questgivers}}
+            {{range $rangeel := .}}
             <div class="quest-border">
-                {{.QuestReward.QuestgiverName}}
-                <span style="color:cadetblue">&#10100;
-                    {{if .QuestReward.RewardLocalQuality}} {{.QuestReward.RewardLocalQuality}} {{end}}
-                    {{if .QuestReward.RewardLocalQualityAdditional}} {{.QuestReward.RewardLocalQualityAdditional}}
+                {{.Questgiver}}
+                <span style="color:brown">&#10100;
+                    {{range $qualel := .Qualities}}
+                    {{$qualel}}
                     {{end}}
                     &#10101;
                 </span>

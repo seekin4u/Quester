@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <link href="/style/style.css" type="text/css" rel="stylesheet">
+    <link href="/static/style/style.css" type="text/css" rel="stylesheet">
     <title>Questgivers </title>
 </head>
 
@@ -19,9 +19,15 @@
         <div> General length : {{$length}}</div>
         <div class="container-border">
 
-            {{range $rangeel := $questgivers}}
+            {{range $rangeel := .Questgivers}}
             <div class="quest-border">
-                {{.}}
+                {{.QuestReward.QuestgiverName}}
+                <span style="color:cadetblue">&#10100;
+                    {{if .QuestReward.RewardLocalQuality}} {{.QuestReward.RewardLocalQuality}} {{end}}
+                    {{if .QuestReward.RewardLocalQualityAdditional}} {{.QuestReward.RewardLocalQualityAdditional}}
+                    {{end}}
+                    &#10101;
+                </span>
                 <button onclick="location.href='/npc/1'" type="button">
                     examine</button>
             </div>

@@ -15,7 +15,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 	t.Execute(w, au)
 }
 
-// get [every unique npc, get every q of this npc], give this array to the template
 func NpcHandlerGeneral(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	qgs := model.GetQuestgiversQualities()
 
@@ -25,17 +24,9 @@ func NpcHandlerGeneral(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 
 func NpcHandlerSpecial(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-	questgiverQualities := model.GetQestgiverQualities()
+	npc := ps.ByName("npc")
+	questgiverQualitiesQuests := model.GetQestgiverQualitiesQuests(npc)
 
 	t := template.Must(template.ParseFiles("templates/npcQl.html"))
-	t.Execute(w, questgiverQualities)
-}
-
-func contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
+	t.Execute(w, questgiverQualitiesQuests)
 }

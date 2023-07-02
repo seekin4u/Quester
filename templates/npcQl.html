@@ -1,5 +1,7 @@
 {{ $questgiver := .Questgiver }}
 {{ $length := len .Qualities }}
+{{ $questlength := len .Quests }}
+
 <html>
 
 <head>
@@ -16,18 +18,51 @@
             <a href="#stat">Stat</a>
         </div>
 
-        <div> General length : {{$length}}</div>
+        <div> Qualities: {{$length}}</div>
+        <div> Quests: {{$questlength}}</div>
         <div class="container-border">
             <div class="quest-border">
                 <div>
                     <span style="color :#86b957">{{$questgiver}}</span>
 
-                    <span style="color:cadetblue">&#10100; {{.Qualities}} &#10101;</span>
-                    <button onclick="location.href='/npc/'" type="button">
-                        examine</button>
-
+                    <span style="color:cadetblue">
+                        &#10100;
+                        {{range $qualel := .Qualities}}
+                        {{$qualel}}
+                        {{end}}
+                        &#10101;
+                    </span>
                 </div>
             </div>
+            {{range $rangeel := .Quests}}
+            <div class="quest-border">
+                {{if .Quest.QuestReward.QuestgiverName}}
+                <div>
+                    <span style="color :#86b957">{{.Quest.QuestReward.QuestgiverName}}</span>
+                    <span style="color :brown">
+                        {{if .Quest.QuestReward.RewardLp}}LP:{{.Quest.QuestReward.RewardLp}}{{end}}
+                        {{if .Quest.QuestReward.RewardExp}}EXP:{{.Quest.QuestReward.RewardExp}}{{end}}
+                        <!-- отображение обычного качества inline-->
+                        {{if .Quest.QuestReward.RewardLocalQuality}}{{.Quest.QuestReward.RewardLocalQuality}}
+                        {{if .Quest.QuestReward.RewardBy}} {{.Quest.QuestReward.RewardBy}}
+                        {{end}}
+                        {{end}}
+                        <!-- отображение доп качества inline-->
+                        {{if .Quest.QuestReward.RewardLocalQualityAdditional}}
+                        {{.Quest.QuestReward.RewardLocalQualityAdditional}}
+                        {{if .Quest.QuestReward.RewardBy}}{{.Quest.QuestReward.RewardBy}}
+                        {{end}}
+                        {{end}}
+
+                        {{if .Quest.QuestReward.RewardItem}}{{.Quest.QuestReward.RewardItem}}{{end}}
+                    </span>
+
+                    <span style="color:cadetblue">&#10100; {{.Quest.Character}} {{.Time}} &#10101;</span>
+
+                </div>
+                {{end}}
+            </div>
+            {{end}}
         </div>
     </div>
 </body>

@@ -19,15 +19,13 @@
 
             {{range $rangeel := .}}
             <div class="quest-border">
-                {{.Questgiver}}
+                <a style="color :#86b957" href="/npc/{{.Questgiver}}">{{.Questgiver}}</a>
                 <span style="color:brown">&#10100;
                     {{range $qualel := .Qualities}}
                     {{$qualel}}
                     {{end}}
                     &#10101;
                 </span>
-                <button onclick="location.href='/npc/1'" type="button">
-                    examine</button>
             </div>
             {{end}}
 

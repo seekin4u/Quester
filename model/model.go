@@ -7,12 +7,6 @@ import (
 	"net/http"
 )
 
-func checkError(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
-}
-
 func GetQuests() (aq *AllQuests) {
 	res, err := http.Get("http://localhost:3000/api/getall")
 	if err != nil {
@@ -39,7 +33,7 @@ func GetQuests() (aq *AllQuests) {
 func GetQuestgiversQualities() []QuestgiverQualities {
 	var questGiversQuelities []QuestgiverQualities
 
-	res, err := http.Get("http://localhost:3000/api/questgiver/questgivers")
+	res, err := http.Get("http://localhost:3000/api/questgiver/all")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return questGiversQuelities
@@ -61,7 +55,7 @@ func GetQuestgiversQualities() []QuestgiverQualities {
 	fmt.Println(receivedQuestgivers)
 
 	for _, el := range receivedQuestgivers.Questgivers {
-		qg, err := http.Get("http://localhost:3000/api/questgiver/questgiverqualities/" + el)
+		qg, err := http.Get("http://localhost:3000/api/questgiver/qualities/" + el)
 		if err != nil {
 			fmt.Printf("error making http request: %s\n on %s", err, el)
 			return questGiversQuelities
@@ -83,31 +77,49 @@ func GetQuestgiversQualities() []QuestgiverQualities {
 	return questGiversQuelities
 }
 
-func GetQestgiverQualities() QuestgiverQualities {
+func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
 
-	res, err := http.Get("http://localhost:3000/api/questgiver/general")
+	//get string of qualities in order to simple draw it.
+	qg, err := http.Get("http://localhost:3000/api/questgiver/qualities/" + npcname)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
-		return QuestgiverQualities{}
+		return QuestgiverQualitiesQuests{}
 	}
-	fmt.Printf("client: status code: %d\n", res.StatusCode)
-
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(qg.Body)
 	if err != nil {
-		fmt.Println("Failed to parse response body")
-		return QuestgiverQualities{}
+		fmt.Println("Failed to parse response body of /qg/qualities/" + npcname)
+		return QuestgiverQualitiesQuests{}
+	}
+	var receivedQuestgiverQualitiesQuests QuestgiverQualitiesQuests
+	err = json.Unmarshal(body, &receivedQuestgiverQualitiesQuests)
+	if err != nil {
+		fmt.Println("Failed to parse response json of /qg/qualities")
+		return QuestgiverQualitiesQuests{}
 	}
 
-	var receivedQuestgiverQualities QuestgiverQualities
-	err = json.Unmarshal(body, &receivedQuestgiverQualities)
+	qs, err := http.Get("http://localhost:3000/api/questgiver/quests/" + npcname)
+	if err != nil {
+		fmt.Printf("error making http request: %s\n", err)
+		return QuestgiverQualitiesQuests{}
+	}
+	body, err = ioutil.ReadAll(qs.Body)
+	if err != nil {
+		fmt.Println("Failed to parse response body of /qg/qualities/" + npcname)
+		return QuestgiverQualitiesQuests{}
+	}
+	var allQuests AllQuests
+	err = json.Unmarshal(body, &allQuests)
 	if err != nil {
 		fmt.Println("Failed to parse response json")
-		return QuestgiverQualities{}
+		return QuestgiverQualitiesQuests{}
 	}
-	fmt.Println(receivedQuestgiverQualities)
-	return receivedQuestgiverQualities
+
+	receivedQuestgiverQualitiesQuests.Quests = allQuests.Quests
+
+	return receivedQuestgiverQualitiesQuests
 }
 
+// ********** unmarshalling models *************/
 // /api/questgiver/questgivers
 type QuestgiversString struct {
 	Questgivers []string `json:"qgs"`
@@ -123,6 +135,17 @@ type QuestgiverQualities struct {
 	Qualities  []string `json:"ql"`
 }
 
+type QuestgiverQualitiesQuests struct {
+	Questgiver string   `json:"qg"`
+	Qualities  []string `json:"ql"`
+	Quests     []*QuestTime
+}
+
+type QualitiesString struct {
+	Qualities []string `json:"qls"`
+}
+
+// ******** base models ********/
 type AllQuests struct {
 	Quests []*QuestTime `json:"array"`
 }

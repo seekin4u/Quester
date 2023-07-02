@@ -15,7 +15,8 @@ func main() {
 	router.ServeFiles("/static/*filepath", http.Dir("static"))
 	router.GET("/main", handlers.IndexHandler)
 	router.GET("/npc", handlers.NpcHandlerGeneral)
-	//router.GET("/npc/1", handlers.NpcHandlerSpecial)
+	router.GET("/npc/:npc", handlers.NpcHandlerSpecial)
+
 	http.ListenAndServe(":5000", router)
 
 }

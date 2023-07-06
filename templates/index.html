@@ -12,7 +12,7 @@
         <div class="topnav">
             <a class="active" href="/main">View quests</a>
             <a href="/npc">NPCs</a>
-            <a href="/qualities">Qualities</a>
+            <a href="/quality">Qualities</a>
             <a href="#stat">Stat</a>
         </div>
 
@@ -32,12 +32,6 @@
                         <!-- отображение обычного качества inline-->
                         {{if .Quest.QuestReward.RewardLocalQuality}}{{.Quest.QuestReward.RewardLocalQuality}}
                         {{if .Quest.QuestReward.RewardBy}} {{.Quest.QuestReward.RewardBy}}
-                        {{end}}
-                        {{end}}
-                        <!-- отображение доп качества inline-->
-                        {{if .Quest.QuestReward.RewardLocalQualityAdditional}}
-                        {{.Quest.QuestReward.RewardLocalQualityAdditional}}
-                        {{if .Quest.QuestReward.RewardBy}}{{.Quest.QuestReward.RewardBy}}
                         {{end}}
                         {{end}}
 

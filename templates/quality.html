@@ -1,0 +1,51 @@
+{{ $qualitiesstr := .QualitiesString }}
+{{ $qualityquestgivers := .QualitiesQuestgivers}}
+<html>
+
+<head>
+    <link href="/static/style/style.css" type="text/css" rel="stylesheet">
+    <title>Qualities </title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="topnav">
+            <a href="/main">View quests</a>
+            <a href="/npc">NPCs</a>
+            <a class="active" href="/qualities">Qualities</a>
+            <a href="#stat">Stat</a>
+        </div>
+
+        <div> Different qualities : {{len $qualitiesstr.QualitiesStrings}}</div>
+        <div class="container-border">
+            <div class="quest-border">
+
+                <span style="color : brown">Qualities:</span>
+
+                <span style="color:brown">
+                    &#10100;
+                    {{range $qualel := $qualitiesstr.QualitiesStrings}}
+                    {{$qualel}}
+                    {{end}}
+                    &#10101;
+                </span>
+
+            </div>
+            {{range $qualquestel := $qualityquestgivers}}
+            <div class="quest-border">
+                <span style="color:brown">{{.Quality}} {{.Ups}} &#10100;</span>
+
+                {{range $qualquestgiver := .QualityQuestgivers}}
+                <a style="color :#86b957"
+                    href="/npc/{{$qualquestgiver.QuestgiverName}}">{{$qualquestgiver.QuestgiverName}}</a>
+                {{end}}
+                <span style="color:brown">&#10101;</span>
+            </div>
+            {{end}}
+
+
+        </div>
+    </div>
+</body>
+
+</html>

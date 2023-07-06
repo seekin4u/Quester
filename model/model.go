@@ -119,6 +119,52 @@ func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
 	return receivedQuestgiverQualitiesQuests
 }
 
+func GetQualityQuestgivers() QualityPage {
+	var qp QualityPage
+
+	//get string of qualities in order to simple draw it.
+	qg, err := http.Get("http://localhost:3000/api/quality/all")
+	if err != nil {
+		fmt.Printf("error making http request: %s\n", err)
+		return QualityPage{}
+	}
+	body, err := ioutil.ReadAll(qg.Body)
+	if err != nil {
+		fmt.Println("Failed to parse response body of /quality/all")
+		return QualityPage{}
+	}
+	var receivedQualities QualitiesString
+	err = json.Unmarshal(body, &receivedQualities)
+	if err != nil {
+		fmt.Println("Failed to parse response json of /quality/all")
+		return QualityPage{}
+	}
+	qp.QualitiesString = receivedQualities
+
+	for _, el := range receivedQualities.QualitiesStrings {
+		qg, err := http.Get("http://localhost:3000/api/quality/" + el)
+		if err != nil {
+			fmt.Printf("error making http request: %s\n on %s", err, el)
+			return QualityPage{}
+		}
+		body, err := ioutil.ReadAll(qg.Body)
+		if err != nil {
+			fmt.Println("Failed to parse response body of [" + el + "]")
+			return QualityPage{}
+		}
+
+		var receivedDescriptions QualityQuestgivers
+		err = json.Unmarshal(body, &receivedDescriptions)
+		if err != nil {
+			fmt.Println("Failed to parse response json of [" + el + "]")
+			return QualityPage{}
+		}
+		qp.QualitiesQuestgivers = append(qp.QualitiesQuestgivers, receivedDescriptions)
+	}
+
+	return qp
+}
+
 // ********** unmarshalling models *************/
 // /api/questgiver/questgivers
 type QuestgiversString struct {
@@ -141,8 +187,24 @@ type QuestgiverQualitiesQuests struct {
 	Quests     []*QuestTime
 }
 
+// general qualities set [Auroch, Badger, Anthill]
 type QualitiesString struct {
-	Qualities []string `json:"qls"`
+	QualitiesStrings []string `json:"qls"`
+}
+
+// set of qualities + set of sets of individual quests by quality
+// Badger, Auroch
+// Badger {Npc1 Npc2}
+// Aurhch {Npc3}
+type QualityQuestgivers struct {
+	Quality            string             `json:"ql"`
+	QualityQuestgivers []QuestDescription `json:"qgs"`
+	Ups                int                `json:"ups"`
+}
+
+type QualityPage struct {
+	QualitiesString      QualitiesString
+	QualitiesQuestgivers []QualityQuestgivers
 }
 
 // ******** base models ********/

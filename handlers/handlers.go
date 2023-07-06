@@ -30,3 +30,11 @@ func NpcHandlerSpecial(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 	t := template.Must(template.ParseFiles("templates/npcQl.html"))
 	t.Execute(w, questgiverQualitiesQuests)
 }
+
+func QualitiesHandlerGeneral(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	qgs := model.GetQualityQuestgivers()
+
+	t := template.Must(template.ParseFiles("templates/quality.html"))
+	t.Execute(w, qgs)
+}

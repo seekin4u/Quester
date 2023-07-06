@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <link href="/static/style/style.css" type="text/css" rel="stylesheet">
+    <title>Qualities </title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="topnav">
+            <a href="/main">View quests</a>
+            <a href="/npc">NPCs</a>
+            <a class="active" href="/quality">Qualities</a>
+            <a href="#stat">Stat</a>
+        </div>
+
+        <div> Questgivers: {{len .SpecialQuality.QualityQuestgivers}} </div>
+        <div> Quests: {{len .SpecialQualityQuests}} </div>
+        <div class="container-border">
+            <div class="quest-border">
+                <span style="color : brown">{{.SpecialQuality.Quality}}</span>
+                <span style="color:brown"> {{ .SpecialQuality.Ups}} &#10100;</span>
+                {{range $el := .SpecialQuality.QualityQuestgivers}}
+                <a style="color :#86b957" href="/npc/{{.QuestgiverName}}">
+                    {{.QuestgiverName}}
+                </a>
+                {{end}}
+                <span style="color:brown">&#10101;</span>
+            </div>
+            {{range $quests := .SpecialQualityQuests}}
+            <div class="quest-border">
+                {{if .Quest.QuestReward.QuestgiverName}}
+                <span style="color :#86b957"><a style="color :#86b957"
+                        href="/npc/{{.Quest.QuestReward.QuestgiverName}}">{{.Quest.QuestReward.QuestgiverName}}</a></span>
+                {{end}}
+
+                <span style="color:brown">
+                    {{if .Quest.QuestReward.RewardLocalQuality}}{{.Quest.QuestReward.RewardLocalQuality}}
+                    {{if .Quest.QuestReward.RewardBy}} {{.Quest.QuestReward.RewardBy}}
+                    {{end}}
+                    {{end}}
+                </span>
+                <span style="color:cadetblue">&#10100; {{.Quest.Character}} {{.Time}} &#10101;</span>
+            </div>
+            {{end}}
+        </div>
+    </div>
+</body>
+
+</html>

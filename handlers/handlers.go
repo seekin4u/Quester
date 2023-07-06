@@ -38,3 +38,11 @@ func QualitiesHandlerGeneral(w http.ResponseWriter, r *http.Request, ps httprout
 	t := template.Must(template.ParseFiles("templates/quality.html"))
 	t.Execute(w, qgs)
 }
+
+func QualitiesHandlerSpecial(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	quality := ps.ByName("quality")
+	qgs := model.GetQualityQuestgiversQuests(quality)
+
+	t := template.Must(template.ParseFiles("templates/qualityQl.html"))
+	t.Execute(w, qgs)
+}

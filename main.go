@@ -16,7 +16,8 @@ func main() {
 	router.GET("/main", handlers.IndexHandler)
 	router.GET("/npc", handlers.NpcHandlerGeneral)
 	router.GET("/npc/:npc", handlers.NpcHandlerSpecial)
-	router.GET("/qualities", handlers.QualitiesHandlerGeneral)
+	router.GET("/quality", handlers.QualitiesHandlerGeneral)
+	router.GET("/quality/:quality", handlers.QualitiesHandlerSpecial)
 
 	http.ListenAndServe(":5000", router)
 

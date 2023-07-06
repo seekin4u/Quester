@@ -8,7 +8,7 @@ import (
 )
 
 func GetQuests() (aq *AllQuests) {
-	res, err := http.Get("http://localhost:3000/api/getall")
+	res, err := http.Get("http://localhost:3000/api/quests/all")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return &AllQuests{}
@@ -165,6 +165,49 @@ func GetQualityQuestgivers() QualityPage {
 	return qp
 }
 
+func GetQualityQuestgiversQuests(quality string) QualitySpecialPage {
+	var qp QualitySpecialPage
+
+	//get string of qualities in order to simple draw it.
+	qg, err := http.Get("http://localhost:3000/api/quality/" + quality)
+	if err != nil {
+		fmt.Printf("error making http request: %s\n", err)
+		return QualitySpecialPage{}
+	}
+	body, err := ioutil.ReadAll(qg.Body)
+	if err != nil {
+		fmt.Println("Failed to parse response body of /quality/" + quality)
+		return QualitySpecialPage{}
+	}
+	var receivedQualities QualityQuestgivers
+	err = json.Unmarshal(body, &receivedQualities)
+	if err != nil {
+		fmt.Println("Failed to parse response json of /quality/" + quality)
+		return QualitySpecialPage{}
+	}
+	qp.SpecialQuality = receivedQualities
+
+	//get quests with reward "quality"
+	qg, err = http.Get("http://localhost:3000/api/quests/quality/" + quality)
+	if err != nil {
+		fmt.Printf("error making http request: %s\n", err)
+		return QualitySpecialPage{}
+	}
+	body, err = ioutil.ReadAll(qg.Body)
+	if err != nil {
+		fmt.Println("Failed to parse response body of /quests/quality/" + quality)
+		return QualitySpecialPage{}
+	}
+
+	err = json.Unmarshal(body, &qp)
+	if err != nil {
+		fmt.Println("Failed to parse response json of /quests/quality/" + quality)
+		return QualitySpecialPage{}
+	}
+
+	return qp
+}
+
 // ********** unmarshalling models *************/
 // /api/questgiver/questgivers
 type QuestgiversString struct {
@@ -205,6 +248,11 @@ type QualityQuestgivers struct {
 type QualityPage struct {
 	QualitiesString      QualitiesString
 	QualitiesQuestgivers []QualityQuestgivers
+}
+
+type QualitySpecialPage struct {
+	SpecialQuality       QualityQuestgivers //grief questgiver descriptions
+	SpecialQualityQuests []QuestTime        `json:"array"` //set of quests athat up that quality
 }
 
 // ******** base models ********/

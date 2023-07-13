@@ -84,22 +84,22 @@ func GetQuestgiversQualities() QuestgiverQualitiesPage {
 }
 
 func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
-
+	var questgiverQualitiesQuestsPage QuestgiverQualitiesQuests
 	//TODO : rework in order to work with qualities from /api/questgiver/:pnc
-	qg, err := http.Get(URL + "/api/questgiver/qualitiesquests/" + npcname)
+	qg, err := http.Get(URL + "/api/questgiver/" + npcname)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QuestgiverQualitiesQuests{}
 	}
 	body, err := ioutil.ReadAll(qg.Body)
 	if err != nil {
-		fmt.Println("Failed to parse response body of /qg/qualitiesquests/" + npcname)
+		fmt.Println("Failed to parse response body of /api/questgiver/" + npcname)
 		return QuestgiverQualitiesQuests{}
 	}
-	var receivedQuestgiverQualitiesQuests QuestgiverQualitiesQuests
-	err = json.Unmarshal(body, &receivedQuestgiverQualitiesQuests)
+	var receivedQuestgiverQualities QuestgiverQualities
+	err = json.Unmarshal(body, &receivedQuestgiverQualities)
 	if err != nil {
-		fmt.Println("Failed to parse response json of /qg/qualitiesquests")
+		fmt.Println("Failed to parse response json of /api/questgiver/")
 		return QuestgiverQualitiesQuests{}
 	}
 
@@ -110,19 +110,20 @@ func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
 	}
 	body, err = ioutil.ReadAll(qs.Body)
 	if err != nil {
-		fmt.Println("Failed to parse response body of /qg/qualities/" + npcname)
+		fmt.Println("Failed to parse response body of /api/questgiver/quests/" + npcname)
 		return QuestgiverQualitiesQuests{}
 	}
 	var allQuests AllQuests
 	err = json.Unmarshal(body, &allQuests)
 	if err != nil {
-		fmt.Println("Failed to parse response json")
+		fmt.Println("Failed to parse response json of /api/questgiver/quests/" + npcname)
 		return QuestgiverQualitiesQuests{}
 	}
 
-	receivedQuestgiverQualitiesQuests.Quests = allQuests.Quests
+	questgiverQualitiesQuestsPage.Quests = allQuests.Quests
+	questgiverQualitiesQuestsPage.QuestgiverQualities = receivedQuestgiverQualities
 
-	return receivedQuestgiverQualitiesQuests
+	return questgiverQualitiesQuestsPage
 }
 
 func GetQualityQuestgivers() QualityPage {
@@ -240,9 +241,8 @@ type QuestgiverQualitiesPage struct {
 }
 
 type QuestgiverQualitiesQuests struct {
-	Questgiver string   `json:"qg"`
-	Qualities  []string `json:"ql"`
-	Quests     []*QuestTime
+	QuestgiverQualities QuestgiverQualities
+	Quests              []*QuestTime
 }
 
 // general qualities set [Auroch, Badger, Anthill]

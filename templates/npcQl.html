@@ -1,6 +1,7 @@
-{{ $questgiver := .Questgiver }}
-{{ $length := len .Qualities }}
+{{ $questgiver := .QuestgiverQualities.Questgiver }}
+{{ $length := len .QuestgiverQualities.Qualities }}
 {{ $questlength := len .Quests }}
+
 
 <html>
 
@@ -27,10 +28,10 @@
 
                     <span style="color:cadetblue">
                         &#10100;
-                        {{range $qualel := .Qualities}}
+                        {{range $qualel := .QuestgiverQualities.Qualities}}
                         {{$qualel}}
                         {{end}}
-                        &#10101;
+                        &#10101; LP:{{ .QuestgiverQualities.TotalLp}} EXP: {{.QuestgiverQualities.TotalExp}}
                     </span>
                 </div>
             </div>
@@ -43,7 +44,9 @@
                         {{if .Quest.QuestReward.RewardLp}}LP:{{.Quest.QuestReward.RewardLp}}{{end}}
                         {{if .Quest.QuestReward.RewardExp}}EXP:{{.Quest.QuestReward.RewardExp}}{{end}}
                         <!-- отображение обычного качества inline-->
-                        {{if .Quest.QuestReward.RewardLocalQuality}}{{.Quest.QuestReward.RewardLocalQuality}}
+                        {{if .Quest.QuestReward.RewardLocalQuality}}
+                        <span style="color :#86b957"><a style="color :brown"
+                                href="/npc/{{.Quest.QuestReward.RewardLocalQuality}}">{{.Quest.QuestReward.RewardLocalQuality}}</a></span>
                         {{if .Quest.QuestReward.RewardBy}} {{.Quest.QuestReward.RewardBy}}
                         {{end}}
                         {{end}}

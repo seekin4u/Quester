@@ -22,9 +22,7 @@
                 {{range $questgiver := .QuestgiversString.Questgivers}}
                 {{$questgiver}}
                 {{end}}
-                &#10101;
-                <br>LP: {{.QuestgiversString.TotalLp}}
-                <br>EXP: {{.QuestgiversString.TotalExp}}
+                &#10101; LP: {{.QuestgiversString.TotalLp}} EXP: {{.QuestgiversString.TotalExp}}
             </div>
 
             {{range $rangeel := .QuestgiverQualities}}
@@ -35,7 +33,7 @@
                     {{$qualel}}
                     {{end}}
                     &#10101;
-                </span>
+                </span> LP: {{.TotalLp}} EXP: {{.TotalExp}}
             </div>
             {{end}}
 

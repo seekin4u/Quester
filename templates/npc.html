@@ -14,10 +14,20 @@
             <a href="#stat">Stat</a>
         </div>
 
-        <div> General length : {{len .}}</div>
+        <div> General length : {{len .QuestgiverQualities}}</div>
+        <div> String length : {{len .QuestgiversString.Questgivers}}</div>
         <div class="container-border">
+            <div class="quest-border">
+                &#10100;
+                {{range $questgiver := .QuestgiversString.Questgivers}}
+                {{$questgiver}}
+                {{end}}
+                &#10101;
+                <br>LP: {{.QuestgiversString.TotalLp}}
+                <br>EXP: {{.QuestgiversString.TotalExp}}
+            </div>
 
-            {{range $rangeel := .}}
+            {{range $rangeel := .QuestgiverQualities}}
             <div class="quest-border">
                 <a style="color :#86b957" href="/npc/{{.Questgiver}}">{{.Questgiver}}</a>
                 <span style="color:brown">&#10100;

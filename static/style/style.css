@@ -45,6 +45,7 @@
 
 .container-border {
     min-width: 30%;
+    max-width: 70%;
     overflow: auto;
 }
 

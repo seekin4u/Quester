@@ -7,13 +7,16 @@ import (
 	"net/http"
 )
 
+// var URL string = os.Getenv("BACK_URL")
+var URL string = "http://localhost:3000"
+
 func GetQuests() (aq *AllQuests) {
-	res, err := http.Get("http://localhost:3000/api/quests/all")
+	res, err := http.Get(URL + "/api/quests/all")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return &AllQuests{}
 	}
-	fmt.Printf("client: status code: %d\n", res.StatusCode)
+	fmt.Printf("/main: status code: %d\n", res.StatusCode)
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
@@ -30,57 +33,60 @@ func GetQuests() (aq *AllQuests) {
 	return &allQuests
 }
 
-func GetQuestgiversQualities() []QuestgiverQualities {
+func GetQuestgiversQualities() QuestgiverQualitiesPage {
 	var questGiversQuelities []QuestgiverQualities
+	var questgiversPage QuestgiverQualitiesPage
 
-	res, err := http.Get("http://localhost:3000/api/questgiver/all")
+	res, err := http.Get(URL + "/api/questgiver/all")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
-		return questGiversQuelities
+		return questgiversPage
 	}
-	fmt.Printf("client: status code: %d\n", res.StatusCode)
+	fmt.Printf("/npc: status code: %d\n", res.StatusCode)
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("Failed to parse response body")
-		return questGiversQuelities
+		return questgiversPage
 	}
 
 	var receivedQuestgivers QuestgiversString
 	err = json.Unmarshal(body, &receivedQuestgivers)
 	if err != nil {
 		fmt.Println("Failed to parse response json")
-		return questGiversQuelities
+		return questgiversPage
 	}
-	fmt.Println(receivedQuestgivers)
+	//fmt.Println(receivedQuestgivers)
 
 	for _, el := range receivedQuestgivers.Questgivers {
-		qg, err := http.Get("http://localhost:3000/api/questgiver/qualities/" + el)
+		qg, err := http.Get(URL + "/api/questgiver/" + el)
 		if err != nil {
 			fmt.Printf("error making http request: %s\n on %s", err, el)
-			return questGiversQuelities
+			return questgiversPage
 		}
 		body, err := ioutil.ReadAll(qg.Body)
 		if err != nil {
 			fmt.Println("Failed to parse response body of [" + el + "]")
-			return questGiversQuelities
+			return questgiversPage
 		}
 		var receivedQuestgiverQualities QuestgiverQualities
 		err = json.Unmarshal(body, &receivedQuestgiverQualities)
 		if err != nil {
 			fmt.Println("Failed to parse response json of [" + el + "]")
-			return questGiversQuelities
+			return questgiversPage
 		}
 		questGiversQuelities = append(questGiversQuelities, receivedQuestgiverQualities)
 	}
-
-	return questGiversQuelities
+	questgiversPage.QuestgiversString = receivedQuestgivers
+	questgiversPage.QuestgiverQualities = questGiversQuelities
+	//remake template to work with .QuestgiverQualities
+	return questgiversPage
 }
 
 func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
 
 	//get string of qualities in order to simple draw it.
-	qg, err := http.Get("http://localhost:3000/api/questgiver/qualities/" + npcname)
+	qg, err := http.Get(URL + "/api/questgiver/qualities/" + npcname)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QuestgiverQualitiesQuests{}
@@ -97,7 +103,7 @@ func GetQestgiverQualitiesQuests(npcname string) QuestgiverQualitiesQuests {
 		return QuestgiverQualitiesQuests{}
 	}
 
-	qs, err := http.Get("http://localhost:3000/api/questgiver/quests/" + npcname)
+	qs, err := http.Get(URL + "/api/questgiver/quests/" + npcname)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QuestgiverQualitiesQuests{}
@@ -123,7 +129,7 @@ func GetQualityQuestgivers() QualityPage {
 	var qp QualityPage
 
 	//get string of qualities in order to simple draw it.
-	qg, err := http.Get("http://localhost:3000/api/quality/all")
+	qg, err := http.Get(URL + "/api/quality/all")
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QualityPage{}
@@ -142,7 +148,7 @@ func GetQualityQuestgivers() QualityPage {
 	qp.QualitiesString = receivedQualities
 
 	for _, el := range receivedQualities.QualitiesStrings {
-		qg, err := http.Get("http://localhost:3000/api/quality/" + el)
+		qg, err := http.Get(URL + "/api/quality/" + el)
 		if err != nil {
 			fmt.Printf("error making http request: %s\n on %s", err, el)
 			return QualityPage{}
@@ -169,7 +175,7 @@ func GetQualityQuestgiversQuests(quality string) QualitySpecialPage {
 	var qp QualitySpecialPage
 
 	//get string of qualities in order to simple draw it.
-	qg, err := http.Get("http://localhost:3000/api/quality/" + quality)
+	qg, err := http.Get(URL + "/api/quality/" + quality)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QualitySpecialPage{}
@@ -188,7 +194,7 @@ func GetQualityQuestgiversQuests(quality string) QualitySpecialPage {
 	qp.SpecialQuality = receivedQualities
 
 	//get quests with reward "quality"
-	qg, err = http.Get("http://localhost:3000/api/quests/quality/" + quality)
+	qg, err = http.Get(URL + "/api/quests/quality/" + quality)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		return QualitySpecialPage{}
@@ -212,6 +218,8 @@ func GetQualityQuestgiversQuests(quality string) QualitySpecialPage {
 // /api/questgiver/questgivers
 type QuestgiversString struct {
 	Questgivers []string `json:"qgs"`
+	TotalLp     int      `json:"tlp"`
+	TotalExp    int      `json:"texp"`
 }
 
 type Questgivers struct {
@@ -222,6 +230,11 @@ type Questgivers struct {
 type QuestgiverQualities struct {
 	Questgiver string   `json:"qg"`
 	Qualities  []string `json:"ql"`
+}
+
+type QuestgiverQualitiesPage struct {
+	QuestgiversString   QuestgiversString
+	QuestgiverQualities []QuestgiverQualities
 }
 
 type QuestgiverQualitiesQuests struct {

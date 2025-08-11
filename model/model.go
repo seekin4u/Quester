@@ -5,10 +5,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
-// var URL string = os.Getenv("BACK_URL")
-var URL string = "http://localhost:3000"
+var URL = func() string {
+	if v := os.Getenv("BACK_URL"); v != "" {
+		return v
+	}
+	return "http://localhost:3000"
+}()
 
 func GetQuests() (aq *AllQuests) {
 	res, err := http.Get(URL + "/api/quests/all")
